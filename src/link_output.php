@@ -108,10 +108,10 @@
             <h2 class="section-title">関連サイトへのリンク</h2>
             <div class="links">
                 <a href="https://webclass.edu.kct.ac.jp/webclass/login.php" class="image-link">
-                    <img src="/kousenkeijiban/feature/link/webclass.png" alt="webclass Logo" style="width: 200px; height: auto;">
+                    <img src="/kousenkeijiban/feature/link/src/webclass.png" alt="webclass Logo" style="width: 200px; height: auto;">
                 </a>
                 <a href="https://www.kct.ac.jp/" class="image-link">
-                    <img src="/kousenkeijiban/feature/link/nitkit.png" alt="nitkit Logo" style="width: 90px; height: 90px;">
+                    <img src="/kousenkeijiban/feature/link/src/nitkit.png" alt="nitkit Logo" style="width: 90px; height: 90px;">
                 </a>
             </div>
         </div>
