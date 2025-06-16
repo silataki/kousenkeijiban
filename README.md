@@ -39,7 +39,8 @@ mkdir ディレクトリ名                今いるディレクトリの下に�
 git branch　　　　　　　　　　　　　　今自分がどのbranchにいるのか確認するコマンド
 git checkout ブランチ名　　　　　　　指定したbranchに移動するコマンド
 git clone                          リモートをコピーする
-git pull origin main　　　　　　　　mainに変更があった時にそれを今自分がいるbranchに反映させるコマンド　　　　　　　　　
+git pull origin main　　　　　　　　mainに変更があった時にそれを今自分がいるbranchに反映させるコマンド　
+touch ディレクトリパス/ファイル名    指定したディレクトリ下に新しくファイルを作成するコマンド　　例）touch src/test.py　　srcの中にtest.pyを作る
  | git add .　　　　　　　　　　　　 変更・追加・削除したファイルをgit（リモート）に登録するコマンド　「.」はすべてのファイルという意味　
  | git commit -m "何をしたの説明"　 addで登録した内容を「1つの記録」として保存する　””のなかには「ログイン画面の追加」などこの変更で何をしたのか簡潔に書く
  | git push origin ブランチ名　　　　指定したリモート上のbranchにローカルでの変更を反映させるコマンド
