@@ -13,6 +13,25 @@
             margin: 0;
             padding: 20px;
         }
+        #webclass-logo {
+            width: 200px; /* WebClassロゴの横幅 */
+            height: auto; /* 高さは自動調整 */
+        }
+
+        #nitkit-logo {
+            width: 90px;  /* NIT-KITロゴの横幅 */
+            height: 90px; /* NIT-KITロゴの高さ */
+        }
+
+        /* 全ての画像に共通のスタイルを適用 */
+        .links img {
+            border: 1px solid #ccc;     /* 枠線を追加 */
+            vertical-align: middle;    /* 垂直方向の揃えを調整 */
+            transition: opacity 0.3s;  /* ホバー時のアニメーション */
+        }
+        .links a:hover img {
+            opacity: 0.7; /* マウスを乗せると少し透明にする */
+        }
 
         /* リンク集全体を囲むコンテナ */
         .link-container {
@@ -107,13 +126,11 @@
         <div class="link-section">
             <h2 class="section-title">関連サイトへのリンク</h2>
             <div class="links">
-                <a href="https://webclass.edu.kct.ac.jp/webclass/login.php" class="botton-link">
-                    <img src="webclass.png" alt="webclass Logo" class="button-icon">
-                    <span>WebClass</span>
+                <a href="https://webclass.edu.kct.ac.jp/webclass/login.php">
+                    <img src="webclass.png" alt="webclass Logo" id="webclass-logo">
                 </a>
-                <a href="https://www.kct.ac.jp/" class="botton-link">
-                    <img src="nitkit.png" alt="nitkit Logo" class="button-icon">
-                    <span>高専サイト</span>
+                <a href="https://www.kct.ac.jp/">
+                    <img src="nitkit.png" alt="nitkit Logo" id="nitkit-logo">
                 </a>
             </div>
         </div>
