@@ -1,0 +1,29 @@
+# OS系不要ファイル
+.DS_Store
+Thumbs.db
+
+# PHPのビルトインキャッシュファイル
+*.cache
+
+# Composerのvendorフォルダ（外部ライブラリ）
+/vendor/
+
+# Composerのロックファイル（必要なら除外するが，通常はコミット推奨）
+composer.lock
+
+# PHPUnitのテスト結果ファイルやキャッシュ
+.phpunit.result.cache
+
+# 環境設定ファイル（環境変数など機密情報が入る場合）
+.env
+
+# IDEやエディタの設定フォルダ・ファイル
+.vscode/
+.idea/
+
+# ログファイル
+*.log
+
+# 一時ファイル・キャッシュ
+tmp/
+cache/
