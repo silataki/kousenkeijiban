@@ -25,9 +25,11 @@
 
         /* 全ての画像に共通のスタイルを適用 */
         .links img {
-            border: 1px solid #ccc;     /* 枠線を追加 */
+           /* border: 1px solid #ccc; */    /* 枠線を追加 */
+            background-color:rgb(255, 255, 255);
             vertical-align: middle;    /* 垂直方向の揃えを調整 */
             transition: opacity 0.3s;  /* ホバー時のアニメーション */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .links a:hover img {
             opacity: 0.7; /* マウスを乗せると少し透明にする */
@@ -38,8 +40,8 @@
             max-width: 700px;
             margin: 20px auto;
             padding: 30px;
-            background-color:rgb(255, 243, 252); /* 全体の薄いピンク背景 */
-            border: 1px rgb(250, 195, 237);
+            background-color: rgb(255, 247, 253); /* 全体の薄いピンク背景 */
+            border: 5px solid rgb(251, 211, 241);
             border-radius: 8px;
             position: relative;
         }
@@ -47,7 +49,7 @@
         /* 大見出し「リンク集」 */
         h1 {
             font-size: 2em;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid rgb(224, 218, 224);
             padding-bottom: 15px;
             margin-top: 0;
             margin-bottom: 30px;
@@ -79,7 +81,7 @@
 
         /* 画像リンクのスタイル */
         .links a.image-link img {
-            border: 1px solid #ccc;
+            /*border: 1px solid #ccc;枠線*/
             vertical-align: middle;
             transition: opacity 0.3s;
         }
@@ -89,7 +91,7 @@
 
         /* ボタン風リンクのスタイル */
         .links a.button-link {
-            border: 1px solid #ccc;
+            /*border: 1px solid #ccc;*/
             padding: 12px 45px;
             text-decoration: none;
             color: #333;
