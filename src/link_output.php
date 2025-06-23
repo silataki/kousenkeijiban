@@ -121,7 +121,7 @@
 <body>
     <div class="link-container">
         <div class="cat-illustration">
-            <img src="cat_illustration.png" alt="cat Logo" id="cat-logo">
+            <img src="cat.png" alt="cat Logo" id="cat-logo">
         </div>
         <h1>リンク集</h1>
 
