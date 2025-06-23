@@ -6,7 +6,7 @@ $date = date('Y-m-d');
 $stmt = $pdo->prepare("SELECT rating, COUNT(*) as count FROM votes WHERE facility = ? AND vote_date = ? GROUP BY rating");
 $stmt->execute([$facility, $date]);
 
-$date = array_fill(1, 5, 0);
+$data = array_fill(1, 5, 0);
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $data[intval($row['rating'])] = intval($row['count']);
 }
@@ -26,11 +26,11 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         const chart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['1', '2', '3', '4', '5'],
+                labels: ['たくさん空いてる', '少し埋まってる', '4割ほど埋まってる', '8割ほど埋まってる', '満席！誰も座れない！'],
                 datasets: [{
                     label: '投票数',
                     data: <?= json_encode(array_values($data)) ?>,
-                    backgroundcolor: ['#ffb6c1', '#ffa07a', '#f08080', '#db7093', '#ff69b4']
+                    backgroundColor: ['#ffb6c1', '#ffa07a', '#f08080', '#db7093', '#ff69b4']
                 }]
             }
         });
