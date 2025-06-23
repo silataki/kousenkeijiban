@@ -42,26 +42,28 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
         <p>1~5の値を選んでください：</p>
         <select name="rating" required>
-            <?php for ($i = 1; $i <= 5; $i++): ?>
-                <option value="<?= $i ?>"><?= $i ?></option>
-            <?php endfor; ?>
-            </select>
+            <option value="1">たくさん空いてる</option>
+            <option value="2">少し埋まってる</option>
+            <option value="3">4割ほど埋まってる</option>
+            <option value="4">8割ほど埋まってる</option>
+            <option value="5">満席！誰も座れない！</option>
+        </select>
         <button type="submit">送信</button>
     </form>
 
     <h3>投票状況 (<?= $date ?>)</h3>
-    <canvas id="chart" width="400" height="400"></canvas>
+    <canvas id="chart" width="300" height="300"></canvas>
 
     <script>
         const ctx = document.getElementById('chart').getContext('2d');
         const chart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['1', '2', '3' ,'4', '5'],
+                labels: ['たくさん空いてる', '少し埋まってる', '4割ほど埋まってる' ,'8割埋まってる', '満席！誰も座れない！'],
                 datasets: [{
                     label: '投票数',
                     data: <?= json_encode(array_values($data)) ?>,
-                    backgroundcolor: ['#ffb6c1', '#ffa07a', '#f08080', '#db7093', '#ff69b4']
+                    backgroundColor: ['#ffb6c1', '#ffa07a', '#f08080', '#db7093', '#ff69b4']
                 }]
             }
         });
