@@ -114,7 +114,7 @@
             bottom: 10px; /* フッターの下から10pxの位置 */
             right: 25px;  /* フッターの右から25pxの位置 */
             width: 15px;
-            opacity: 0.7;
+            opacity: 1.0;
         }
     </style>
 </head>
