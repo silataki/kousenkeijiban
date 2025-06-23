@@ -113,14 +113,16 @@
             position: absolute;
             bottom: 10px; /* フッターの下から10pxの位置 */
             right: 25px;  /* フッターの右から25pxの位置 */
-            width: 80px;
+            width: 15px;
             opacity: 0.7;
         }
     </style>
 </head>
 <body>
     <div class="link-container">
-        <img src="cat.png" alt="cat Logo" id="cat-logo">
+        <div class="cat-illustration">
+            <img src="cat.png" alt="cat Logo" id="cat-logo">
+        </div>
         <h1>リンク集</h1>
 
         <div class="link-section">
