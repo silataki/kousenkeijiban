@@ -38,8 +38,8 @@
             max-width: 700px;
             margin: 20px auto;
             padding: 30px;
-            background-color: #fff8f8; /* 全体の薄いピンク背景 */
-            border: 1px solid #f0e0e0;
+            background-color:rgb(255, 243, 252); /* 全体の薄いピンク背景 */
+            border: 1px rgb(250, 195, 237);
             border-radius: 8px;
             position: relative;
         }
@@ -108,10 +108,21 @@
             font-size: 1.2em;
             margin: 0;
         }
+
+        .cat-illustration {
+            position: absolute;
+            bottom: 10px; /* フッターの下から10pxの位置 */
+            right: 25px;  /* フッターの右から25pxの位置 */
+            width: 80px;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
-    <div class="link-containar">
+    <div class="link-container">
+        <div class="cat-illustration">
+            <img src="cat_illustration.png" alt="cat Logo" id="cat-logo">
+        </div>
         <h1>リンク集</h1>
 
         <div class="link-section">
