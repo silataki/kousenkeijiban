@@ -36,7 +36,7 @@
         /* リンク集全体を囲むコンテナ */
         .link-container {
             max-width: 700px;
-            margin: 100px auto;
+            margin: 20px auto;
             padding: 30px;
             background-color: #fff8f8; /* 全体の薄いピンク背景 */
             border: 1px solid #f0e0e0;
