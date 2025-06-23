@@ -120,9 +120,7 @@
 </head>
 <body>
     <div class="link-container">
-        <div class="cat-illustration">
-            <img src="cat.png" alt="cat Logo" id="cat-logo">
-        </div>
+        <img src="cat.png" alt="cat Logo" id="cat-logo">
         <h1>リンク集</h1>
 
         <div class="link-section">
@@ -149,5 +147,5 @@
             <h2 class="section-title">TEL</h2>
             <p>学生課総務 093-964-7200（代表）</p>
         </div>
-    </div><body>
+    </div></body>
 </html>
