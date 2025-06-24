@@ -69,7 +69,7 @@
       <img src="/php/main/login_top.png" alt="top_page" />
       <span class="centered-text">NitKit掲示板</span>
       <span class="subcentered-text">NitKit's bulletin board</span>
-      <a href="login_input.php" class="login-link">ログインページへ</a>
+      <a href="/php/main/user/user_input.php" class="login-link">ログインページへ</a>
     </span>
   </p>
 </body>

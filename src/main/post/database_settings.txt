@@ -1,0 +1,102 @@
+****sql command*************************
+CREATE TABLE customer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    login VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    profile_picture LONGBLOB,
+    CHECK (email REGEXP '^k[0-9]{5}[a-z]{2}@apps\\.kct\\.ac\\.jp$')
+);
+********************************************
+
+********add story********************************
+ALTER TABLE users
+ADD COLUMN story LONGBLOB,
+ADD COLUMN story_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+
+✅ Step 2: Enable MySQL Event Scheduler
+Make sure the event scheduler is enabled. Run:
+
+SET GLOBAL event_scheduler = ON;
+✅ This setting needs to be enabled each time MySQL restarts unless configured in my.cnf:
+
+ini
+
+[mysqld]
+event_scheduler=ON
+✅ Step 3: Create an Event to Clear Expired Stories
+Create a scheduled event that runs every hour and removes stories older than 24 hours:
+
+sql
+
+CREATE EVENT clear_old_stories
+ON SCHEDULE EVERY 1 HOUR
+DO
+  UPDATE users
+  SET story = NULL, story_created_at = NULL
+  WHERE story IS NOT NULL AND story_created_at < NOW() - INTERVAL 1 DAY;
+
+This keeps stories for exactly 24 hours after upload.
+************************
+✅ Step-by-step: Enable Event Scheduler in my.cnf
+1. Find your MySQL config file
+Typical paths:
+
+Linux: /etc/mysql/my.cnf or /etc/my.cnf
+
+macOS (Homebrew): /usr/local/etc/my.cnf
+
+Windows: C:\ProgramData\MySQL\MySQL Server X.X\my.ini
+
+2. Edit the file
+Open it in a text editor (e.g., nano, vim, or any GUI editor):
+
+bash
+sudo nano /etc/mysql/my.cnf
+
+3. Add the setting under [mysqld]
+Make sure you find (or add) the [mysqld] section, then add:
+
+ini
+[mysqld]
+event_scheduler=ON
+
+4. Save and restart MySQL
+After saving the changes, restart the MySQL service:
+
+On Linux:
+
+bash
+sudo systemctl restart mysql
+
+On macOS (Homebrew):
+
+bash
+brew services restart mysql
+
+On Windows:
+Restart the MySQL service from Services or use:
+
+cmd
+net stop mysql
+net start mysql
+
+✅ Verify it's enabled permanently
+After restart, connect to MySQL and run:
+
+sql
+Copy
+Edit
+SHOW VARIABLES LIKE 'event_scheduler';
+It should return:
+
+text
+Copy
+Edit
++-----------------+-------+
+| Variable_name   | Value |
++-----------------+-------+
+| event_scheduler | ON    |
++-----------------+-------+
