@@ -2,6 +2,7 @@
 session_start();
 $user_id = 1;
 
+
 $servername = "localhost";
 $username = "root";
 $password = "";

@@ -5,9 +5,9 @@ session_start();
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php'; ?>
 <?php
 // 現在のセッション情報をクリア（これは必要に応じて）
-unset($_SESSION['users']);
+//unset($_SESSION['users']);
 
-$pdo = new PDO('mysql:host=localhost;dbname=shop2;charset=utf8', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=testtest;charset=utf8', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // エラーモードを設定しておくとデバッグしやすい
 
 // ユーザーがフォームから送信したログイン名とパスワードを取得
@@ -37,6 +37,12 @@ if ($users_data) {
             // パスワードはセッションに入れないのが一般的です（セキュリティのため）
             // 'password' => $users_data['password'] 
         ];
+
+        /* セッション時にランダムで数字を発行→ハッシュ化する */
+        if (!isset($_SESSION['user_id'])) {
+        $session_id = session_id();
+        $_SESSION['user_id'] = hexdec(substr(md5($session_id), 0, 8));
+        }
 
         echo 'ようこそ、', htmlspecialchars($_SESSION['users']['name']), 'さん。';
     } else {

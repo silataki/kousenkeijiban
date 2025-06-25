@@ -1,7 +1,6 @@
 <?php
 session_start();
-/*同じユーザ名を入力するとデータベースではエラーが出るが、ページにメッセージがないため想定していない*/
-$pdo = new PDO('mysql:host=localhost;dbname=shop2;charset=utf8', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=testtest;charset=utf8', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
@@ -35,7 +34,7 @@ try {
 
     $_SESSION['users'] = $users;
 
-    header('Location: homepage.php');
+    header('Location: /php/main/home/homepage.php');
     exit;
 } catch (PDOException $e) {
     echo 'Error: ' . htmlspecialchars($e->getMessage());

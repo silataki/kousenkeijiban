@@ -1,34 +1,44 @@
 <?php
 session_start();
 
-/*データベースから呼び出せるようにする */
 // Set hardcoded user ID 1 in session for testing only if not set
-/*if (!isset($_SESSION['user_id'])) {
+/*
+if (!isset($_SESSION['user_id'])) {
     $_SESSION['user_id'] = 1; 
 }
 */
 
-/*add tomoka*/
-
+/* tomoka add */
 if (!isset($_SESSION['users'])) {
     echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
     exit;
 }
 
-$users = $_SESSION['users'];
-/*add finish*/
+if (!isset($_SESSION['user_id'])) {
+    echo "セッションIDが存在しません。ログインし直してください。";
+    exit;
+}
+
+//$users = $_SESSION['users'];
+/* add finish */
 
 // Logged-in user ID (who is using the app)
 $loggedInUserId = $_SESSION['user_id'];
 
 // Profile user ID (whose profile is being viewed), default to logged-in user if none provided
-$profileUserId = isset($_GET['id']) ? intval($_GET['id']) : $loggedInUserId;
+/* user not fuund */
+/* tomoka change */
+//$profileUserId = isset($_GET['id']) ? intval($_GET['id']) : $loggedInUserId;
+/* ↓ */
+$profileUserId = $_SESSION['users']['id'];
+
 
 // Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "shop2";
+$dbname = "testtest";
+
 
 
 // Create connection
@@ -126,10 +136,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 // Fetch current user info for top box
+/* tomoka change */
+
 $stmt = $conn->prepare("SELECT name, mail, profile_pic FROM users WHERE id = ?");
 $stmt->bind_param("i", $profileUserId);
 $stmt->execute();
 $result = $stmt->get_result();
+
+
+/* start */
+/*
+$stmt = $conn->prepare("SELECT profile_pic FROM users WHERE id = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+*/
+/* end */
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -829,7 +851,13 @@ $conn->close();
 
 
   <img src="side_cat.svg" alt="Overlay" class="overlay-image2">
+  <!-- tomoka change -->
+  <!--
   <img src="<?php echo $profilePic; ?>" alt="Profile Picture" class="profile-pic" />
+  -->
+  <!-- start -->
+  <img src="show_profile_pic.php?id=<?= htmlspecialchars($profileUserId) ?>" alt="Profile Picture" class="profile-pic" />
+  <!-- end -->
   <div class="profile-info">
     <div class="name"><?php echo $name; ?></div>
     <div class="mail"><?php echo $mail; ?></div>
@@ -881,6 +909,7 @@ $currentDateJP = date('m') . '月' . date('d') . '日';
         echo '<div class="post-box">';
         echo '<div class="profile-pic-container">';
         echo '<img src="' . htmlspecialchars($post['profile_pic']) . '" alt="Profile Pic" class="post-profile-pic" />';
+
         if ($hasStory) {
           echo '<button class="story-btn" data-postid="' . $post['post_id'] . '" data-story="' . $storyData .'" ;">📸</button>';
         }

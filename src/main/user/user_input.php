@@ -4,9 +4,10 @@ require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
 
 if (isset($_SESSION['users'])) {
     // 既にログイン中ならホームなどにリダイレクト
-    header('Location: homepage.php');
+    header('Location: /php/main/user/please_logout.php');
     exit;
 }
+
 
 $name = $login = $password = $mail = '';
 
@@ -32,4 +33,4 @@ echo '</table>';
 echo '<input type="submit" value="確定">';
 echo '</form>';
 ?>
-<?phprequire $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';?>

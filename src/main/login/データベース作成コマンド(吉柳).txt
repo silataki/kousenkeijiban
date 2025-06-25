@@ -1,0 +1,37 @@
+データベース作成コマンド(吉柳)
+モネちゃんのデータベースに追加する形にしている
+
+//メモ
+ALTER TABLE users ADD COLUMN login VARCHAR(255) NOT NULL;
+ALTER TABLE users ADD COLUMN password VARCHAR(255) NOT NULL;
+
+//メモ
+データベースの列削除
+ALTER TABLE users DROP COLUMN age;
+
+
+手順
+①MySQLにてtesttest.sqlを実行
+MySQLにはxamppのウィンドウの「admin」をクリックで行ける
+実行はMySQLのSQLタブにtesttest.sqlの内容をコピペする
+
+②データベースよりmailとplofile_picを削除
+↓削除コマンド
+ALTER TABLE users DROP COLUMN mail;
+ALTER TABLE users DROP COLUMN profile_pic;
+
+③以下の2つのコマンドを実行
+ALTER TABLE users
+ADD COLUMN mail VARCHAR(255),
+ADD CONSTRAINT mail_check CHECK (mail LIKE 'k_____%@apps.kct.ac.jp');
+------------------------------------------------------------------------
+ALTER TABLE users
+ADD COLUMN profile_pic LONGBLOB;
+
+④列loginを追加
+以下のコマンドを実行
+ALTER TABLE users ADD COLUMN login VARCHAR(255) NOT NULL;
+※(passwordがなければ以下も追加、※マークは削除)
+※ALTER TABLE users ADD COLUMN password VARCHAR(255) NOT NULL;
+
+

@@ -111,21 +111,21 @@ $users = $_SESSION['users'];
     margin-top: 30px;
 ">
     <div style="flex: 1; text-align: center;">
-        <a href="teacher_show.php">
+        <a href="/php/main/teacher/teacher_show.php">
             <img src="teacher_aicon.png" alt="教員情報" style="width: 50%; border-radius: 10px; cursor: pointer;">
             <div style="margin-top: 8px; font-weight: bold;">教員情報</div>
         </a>
     </div>
 
     <div style="flex: 1; text-align: center;">
-        <a href="facilities_show.php">
+        <a href="/php/main/siyouritu/siyouritu.php">
             <img src="facilities_aicon.png" alt="設備情報" style="width: 50%; border-radius: 10px; cursor: pointer;">
             <div style="margin-top: 8px; font-weight: bold;">利用状況</div>
         </a>
     </div>
 
     <div style="flex: 1; text-align: center;">
-        <a href="link_output.php">
+        <a href="/php/main/link/link_output.php">
             <img src="link_aicon.png" alt="リンク集" style="width: 50%; border-radius: 10px; cursor: pointer;">
             <div style="margin-top: 8px; font-weight: bold;">リンク集</div>
         </a>
