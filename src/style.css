@@ -1,27 +1,50 @@
 body {
-    font-family: sans-serif;
-    text-align: center;
+    font-family: 'Arial', 'Hiragino Kaku Gothic ProN', sans-serif;
+    background-color: #f7adca;
+    color: #333;
+
 }
-.text-container{
+.facilities {
     display: flex;
-    justify-content: left;
-    gap: 640px;    
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+.facility-block {
+    background-color: #f7adca;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+.left-align {
+    margin-left: -20px;
+}
+.facility-title{
+    font-weight: bold;  
+    margin-bottom: 20px;
+    font-size: 40px; 
 }
 .button-container{
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 20px;
     margin-bottom: 50px;
 }
 .library, .cafeteria{
     width: 600px;
     height: 200px;
+    min-height: 150px;
+    text-align: center;
+    padding: 20px;
     font-size: 40px;
-    padding: 5px;
     border-radius: 30px;
     background-size: cover;
     background-position: center 45%;
-    color: white;
+    color: rgb(247, 147, 164);
     font-weight: bold;
 }
 .library{
@@ -35,8 +58,43 @@ body {
     filter: brightness(1.1);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-.charts{
-    display: flex;
-    justify-content: center;
-    gap: 100px;
+.chart-frame{
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .facilities {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .library, .cafeteria {
+        width: 90%;
+        height: 150px;
+        font-size: 24px;
+    }
+
+    .facility-title {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .chart-frame {
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+    }
+}
+
+canvas {
+    max-width: 100%;
+    height: auto !important;
 }

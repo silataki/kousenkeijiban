@@ -34,6 +34,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $facility_name ?>投票</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -53,7 +54,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
     <h3>投票状況 (<?= $date ?>)</h3>
     <canvas id="chart" width="300" height="300"></canvas>
-    
+
     <script>
         const ctx = document.getElementById('chart').getContext('2d');
         const chart = new Chart(ctx, {
