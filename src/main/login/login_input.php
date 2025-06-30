@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
     <title>ログイン</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         /* ページの基本設定 */
         body {
@@ -62,6 +65,7 @@
 
         /* 「ログイン」の見出し */
         .login-container h1 {
+            font-family: "Nikukyu";
             width: 380px;         /* フォームの幅と合わせる */
             text-align: left;     /* 文字を左揃えにする */
             box-sizing: border-box; /* 崩れにくくするための設定 */
@@ -78,6 +82,7 @@
         }
 
         .form-group label {
+            font-family: "Nico Moji";
             display: block; /* ラベルを独立した行に表示 */
             text-align: left;
             font-weight: bold;
@@ -98,6 +103,7 @@
 
         /* ログインボタン */
         .login-button {
+            font-family: "Nico Moji";
             width: 350px;
             height: 100px;
             margin-top: 30px;
@@ -114,6 +120,10 @@
             padding-bottom: 10px; /* 文字の位置を微調整 */
             padding-left: 0px;
             padding-right: 30px;
+            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out; /* ← アニメーションを設定 */
+        }
+        .login-button:active {
+            transform: translateY(2px); /* 少し下に移動 */
         }
     </style>
 </head>
