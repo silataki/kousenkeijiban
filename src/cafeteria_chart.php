@@ -35,7 +35,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     data: <?= json_encode(array_values($data)) ?>,
                     backgroundColor: ['#ffb6c1', '#ffa07a', '#f08080', '#db7093', '#ff69b4']
                 }]
-            }
+            },
             options: {
                 responsive: true,
                 maintainAspectRatio: false

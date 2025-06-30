@@ -7,7 +7,7 @@ body {
 .facilities {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
     flex-wrap: wrap;
     margin-top: 40px;
 }
@@ -38,6 +38,7 @@ body {
     width: 600px;
     height: 200px;
     min-height: 150px;
+    max-width: 450px;
     text-align: center;
     padding: 20px;
     font-size: 40px;
@@ -46,6 +47,8 @@ body {
     background-position: center 45%;
     color: rgb(247, 147, 164);
     font-weight: bold;
+    display: block;
+    text-decoration: none;
 }
 .library{
     background-image: url('/library.png');
@@ -61,7 +64,9 @@ body {
 .chart-frame{
     width: 100%;
     max-width: 600px;
+    height: 450px;
     margin-top: 20px;
+    /* background-color: white; */
 }
 
 @media (max-width: 768px) {
@@ -85,6 +90,7 @@ body {
     .button-container {
         flex-direction: column;
         gap: 20px;
+        justify-content: center;
     }
 
     .chart-frame {
