@@ -12,8 +12,8 @@
             background-color: #fff;
             position: relative; /* 画像を配置する基準点にする */
             width: 100vw;
-            height: 100vh;
-            overflow: hidden; /* 画面からはみ出す画像を隠す */
+            min-height: 100vh;
+            /*overflow: hidden; /* 画面からはみ出す画像を隠す */
         }
 
         /* 背景に配置する飾り画像 */
@@ -27,8 +27,8 @@
         .paw-prints-top-left {
             top: 20px;
             left: 20px;
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             background-image: url('paw_prints_top_left.png');
         }
 
@@ -36,15 +36,15 @@
             bottom: 0;
             left: 20px;
             width: 200px;
-            height: 140px;
+            height: 155px;
             background-image: url('paws_bottom_left.png');
         }
 
         .paws-bottom-right {
             bottom: 0;
             right: 20px;
-            width: 150px;
-            height: 110px;
+            width: 200px;
+            height: 160px;
             background-image: url('paws_bottom_right.png');
         }
 
@@ -62,16 +62,19 @@
 
         /* 「ログイン」の見出し */
         .login-container h1 {
+            width: 380px;         /* フォームの幅と合わせる */
+            text-align: left;     /* 文字を左揃えにする */
+            box-sizing: border-box; /* 崩れにくくするための設定 */
             font-size: 2.5em;
             font-weight: bold;
-            margin: 0 0 30px 0;
+            margin: 30px 0 40px 0;
             color: #333;
         }
         
         /* フォームの各入力欄のグループ */
         .form-group {
             margin-bottom: 20px;
-            width: 320px;
+            width: 350px;
         }
 
         .form-group label {
@@ -95,8 +98,9 @@
 
         /* ログインボタン */
         .login-button {
-            width: 320px;
+            width: 350px;
             height: 100px;
+            margin-top: 30px;
             background-image: url('login_button_paw.png');
             background-color: transparent;
             background-size: contain;
@@ -105,9 +109,11 @@
             border: none;
             cursor: pointer; /* マウスカーソルを指の形にする */
             color: #E55277; /* 文字の色 */
-            font-size: 2em;
+            font-size: 2.0em;
             font-weight: bold;
             padding-bottom: 10px; /* 文字の位置を微調整 */
+            padding-left: 0px;
+            padding-right: 30px;
         }
     </style>
 </head>
@@ -123,17 +129,12 @@
         <form action="/your-login-script.php" method="post">
             <div class="form-group">
                 <label for="username">ユーザーネーム</label>
-                <input type="text" id="username" name="username">
+                <input type="text" name="login">
             </div>
-
-            <div class="form-group">
-                <label for="email">メールアドレス</label>
-                <input type="email" id="email" name="email">
-            </div>
-
+            
             <div class="form-group">
                 <label for="password">パスワード</label>
-                <input type="password" id="password" name="password">
+                <input type="password" name="password">
             </div>
 
             <button type="submit" class="login-button">login</button>
