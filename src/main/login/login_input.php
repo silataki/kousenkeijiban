@@ -136,7 +136,7 @@
     <div class="login-container">
         <h1>ログイン</h1>
         
-        <form action="/your-login-script.php" method="post">
+        <form action="login_output.php" method="post">
             <div class="form-group">
                 <label for="username">ユーザーネーム</label>
                 <input type="text" name="login">
