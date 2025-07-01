@@ -136,7 +136,7 @@
     <div class="login-container">
         <h1>ログイン</h1>
         
-        <form action="login_output.php" method="post">
+        <form action="/php/main/login/login_output.php" method="post">
             <div class="form-group">
                 <label for="username">ユーザーネーム</label>
                 <input type="text" name="login">
@@ -148,6 +148,9 @@
             </div>
 
             <button type="submit" class="login-button">login</button>
+        </form>
+        <form action="/php/main/user/user_input.php" method="post">
+            <button type="submit" class="login-button">新規登録</button>
         </form>
     </div>
 
