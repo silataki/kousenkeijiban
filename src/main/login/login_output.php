@@ -39,10 +39,12 @@ if ($users_data) {
         ];
 
         /* セッション時にランダムで数字を発行→ハッシュ化する */
+        /*
         if (!isset($_SESSION['user_id'])) {
         $session_id = session_id();
         $_SESSION['user_id'] = hexdec(substr(md5($session_id), 0, 8));
         }
+        */
 
         echo 'ようこそ、', htmlspecialchars($_SESSION['users']['name']), 'さん。';
     } else {

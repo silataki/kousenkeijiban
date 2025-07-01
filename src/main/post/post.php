@@ -14,16 +14,20 @@ if (!isset($_SESSION['users'])) {
     exit;
 }
 
+/*
 if (!isset($_SESSION['user_id'])) {
     echo "セッションIDが存在しません。ログインし直してください。";
     exit;
 }
+*/
 
 //$users = $_SESSION['users'];
 /* add finish */
 
 // Logged-in user ID (who is using the app)
-$loggedInUserId = $_SESSION['user_id'];
+//$loggedInUserId = $_SESSION['user_id'];
+$loggedInUserId = $_SESSION['users']['id'];
+//$user_id = $_SESSION['users']['id'];
 
 // Profile user ID (whose profile is being viewed), default to logged-in user if none provided
 /* user not fuund */
@@ -123,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $post_content = trim($_POST['post_content'] ?? '');
     if ($post_content !== "") {
         $stmt = $conn->prepare("INSERT INTO posts (user_id, post_date, post_time, post_content) VALUES (?, CURDATE(), CURTIME(), ?)");
-        $stmt->bind_param("is", $loggedInUserId, $post_content);
+        $stmt->bind_param("ss", $loggedInUserId, $post_content);
         if ($stmt->execute()) {
             $message = "Post submitted successfully!";
         } else {
@@ -906,9 +910,18 @@ $currentDateJP = date('m') . '月' . date('d') . '日';
         $hasStory = !empty($post['story']);
         $storyData = $hasStory ? base64_encode($post['story']) : '';
 
+
         echo '<div class="post-box">';
         echo '<div class="profile-pic-container">';
-        echo '<img src="' . htmlspecialchars($post['profile_pic']) . '" alt="Profile Pic" class="post-profile-pic" />';
+        /*tomoka chenge */
+        //echo '<img src="' . htmlspecialchars($post['profile_pic']) . '" alt="Profile Pic" class="post-profile-pic" />';
+        /*
+        echo '<img src="show_profile_pic.php?id=<?= htmlspecialchars($post['profile_pic']) ?>" alt="Profile Picture" class="profile-pic" />';
+        */
+        //echo '<img src="show_profile_pic.php?id=' . htmlspecialchars($post['profile_pic']) . '" alt="Profile Picture" class="post-profile-pic" />';
+        $base64Image = base64_encode($post['profile_pic']);
+        echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Profile Pic" class="post-profile-pic" />';
+        
 
         if ($hasStory) {
           echo '<button class="story-btn" data-postid="' . $post['post_id'] . '" data-story="' . $storyData .'" ;">📸</button>';
@@ -966,9 +979,14 @@ $currentDateJP = date('m') . '月' . date('d') . '日';
     
       <img src="crown2.svg" alt="Overlay" >
     -->
+    <!--
       <img src="<?= htmlspecialchars($topUser['profile_pic']) ?>" alt="Profile Picture">
-        
-        
+    -->  
+
+      <?php 
+      $base64Image = base64_encode($topUser['profile_pic']);
+      ?>
+      <img src="data:image/jpeg;base64,<?= base64_encode($topUser['profile_pic']) ?>" alt="Profile Picture">
 
       <div><?= htmlspecialchars($topUser['name'])?></div>
     <?php else: ?>

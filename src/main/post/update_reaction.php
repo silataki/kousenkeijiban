@@ -1,12 +1,27 @@
 <?php
 session_start();
-$user_id = 1;
+//$user_id = 1;
 
+/*tomoka add */
+if (!isset($_SESSION['users'])) {
+    echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
+    exit;
+}
+
+if (!isset($_SESSION['user_id'])) {
+    echo "セッションIDが存在しません。ログインし直してください。";
+    exit;
+}
+
+$user_id = $_SESSION['users']['id'];
+//$loggedInUserId = $_SESSION['user_id'];
+
+/* finish */
 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "shop2";
+$dbname = "testtest";
 
 header('Content-Type: application/json');
 
@@ -46,7 +61,7 @@ $conn->begin_transaction();
 
 // Check if user already reacted to this post
 $stmt = $conn->prepare("SELECT reaction FROM post_reactions WHERE post_id = ? AND user_id = ?");
-$stmt->bind_param("ii", $post_id, $user_id);
+$stmt->bind_param("is", $post_id, $user_id);
 $stmt->execute();
 $stmt->bind_result($existing_reaction);
 $stmt->fetch();
@@ -56,7 +71,7 @@ try {
     if (!$existing_reaction) {
         // No existing reaction, insert new
         $stmt = $conn->prepare("INSERT INTO post_reactions (post_id, user_id, reaction) VALUES (?, ?, ?)");
-        $stmt->bind_param("iis", $post_id, $user_id, $reaction);
+        $stmt->bind_param("iss", $post_id, $user_id, $reaction);
         $stmt->execute();
         $stmt->close();
 
@@ -72,7 +87,7 @@ try {
     } elseif ($existing_reaction === $reaction) {
         // Same reaction clicked again => remove reaction
         $stmt = $conn->prepare("DELETE FROM post_reactions WHERE post_id = ? AND user_id = ?");
-        $stmt->bind_param("ii", $post_id, $user_id);
+        $stmt->bind_param("is", $post_id, $user_id);
         $stmt->execute();
         $stmt->close();
 
@@ -88,7 +103,7 @@ try {
     } else {
         // Different reaction clicked => update reaction
         $stmt = $conn->prepare("UPDATE post_reactions SET reaction = ? WHERE post_id = ? AND user_id = ?");
-        $stmt->bind_param("sii", $reaction, $post_id, $user_id);
+        $stmt->bind_param("sis", $reaction, $post_id, $user_id);
         $stmt->execute();
         $stmt->close();
 
