@@ -19,11 +19,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= $facility ?>Chart</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div style="width: 100%; max: width 400px; margin: auto">
-        <canvas id="chart"></canvas>
-    </div>
+    <canvas id="chart" class="canvas"></canvas>
     <script>
         const ctx = document.getElementById('chart').getContext('2d');
         const chart = new Chart(ctx, {
@@ -36,9 +35,23 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     backgroundColor: ['#ffb6c1', '#ffa07a', '#f08080', '#db7093', '#ff69b4']
                 }]
             },
-            options: {
+             options: {
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            boxWidth: 20,
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: 0
+                }
             }
         });
         </script>
