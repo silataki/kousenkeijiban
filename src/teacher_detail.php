@@ -48,7 +48,7 @@ $conn->close(); // データベース接続を閉じる
             <p><strong>部屋の場所:</strong> <?php echo htmlspecialchars($teacher_data['room_number']); ?></p>
 
             <?php
-            // ★ここが担当科目を箇条書きで表示する修正部分です★
+            // 担当科目を箇条書きで表示
             if (isset($teacher_data['subjects']) && $teacher_data['subjects'] !== '') {
                 // データベースから取得した担当科目文字列をカンマ (,) で分割し、配列にする
                 $subjects_array = explode(',', $teacher_data['subjects']);

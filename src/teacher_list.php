@@ -23,7 +23,7 @@ include 'config.php'; // データベース接続設定を読み込み
 
     <?php
     // teachersテーブルから先生のID、名前、学科を取得し、学科と名前でソート
-    $sql = "SELECT id, name, department FROM teachers ORDER BY department ASC, name ASC";
+    $sql = "SELECT id, name, department FROM teachers ORDER BY id ASC";
     $result = $conn->query($sql);
 
     $current_department = null; // 現在処理中の学科名を保持する変数
