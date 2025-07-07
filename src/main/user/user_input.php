@@ -1,3 +1,31 @@
+<?php
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    session_start();
+    /*require $_SERVER['DOCUMENT_ROOT'] . '/menu.php'; /*'/php/menu.php';*/
+
+    // ログイン中のリダイレクト処理はここで行う
+    if (isset($_SESSION['users']) && strpos($_SERVER['REQUEST_URI'], 'user_input.php') === false) { // user_input.php自体へのアクセスは許可
+        header('Location: /php/main/user/please_logout.php');/*/php/main/user/please_logout.php'*/
+        exit;
+    }
+
+    $name = $login = $password = $mail = '';
+
+    // 既存ユーザーの情報を取得する場合
+    if (isset($_SESSION['users'])) {
+        $name     = $_SESSION['users']['name'];
+        $login    = $_SESSION['users']['login'];
+        $password = $_SESSION['users']['password'];
+        $mail     = $_SESSION['users']['mail'] ?? '';
+    }
+
+    $csrf = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token'] = $csrf;
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -140,34 +168,6 @@
 </head>
 <body>
 
-    <?php
-
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    session_start();
-    require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
-
-    // ログイン中のリダイレクト処理はここで行う
-    if (isset($_SESSION['users']) && strpos($_SERVER['REQUEST_URI'], 'user_input.php') === false) { // user_input.php自体へのアクセスは許可
-        header('Location: /php/main/user/please_logout.php');
-        exit;
-    }
-
-    $name = $login = $password = $mail = '';
-
-    // 既存ユーザーの情報を取得する場合
-    if (isset($_SESSION['users'])) {
-        $name     = $_SESSION['users']['name'];
-        $login    = $_SESSION['users']['login'];
-        $password = $_SESSION['users']['password'];
-        $mail     = $_SESSION['users']['mail'] ?? '';
-    }
-
-    $csrf = bin2hex(random_bytes(32));
-    $_SESSION['csrf_token'] = $csrf;
-    ?>
-
     <div class="decoration paw-prints-top-left"></div>
     <div class="decoration paws-bottom-left"></div>
     <div class="decoration paws-bottom-right"></div>
@@ -218,7 +218,8 @@
         ?>
     </div>
 
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';?> 
+
     <script>
     // idが'profile_pic'の要素（ファイル選択ボタン）を取得
     const fileInput = document.getElementById('profile_pic');
