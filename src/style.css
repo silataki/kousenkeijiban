@@ -6,6 +6,12 @@ body {
     background-repeat: repeat;
 }
 
+.vote-page {
+    text-align: center;
+    background-color: #ffcce0;
+    font-family: 'Arial', sans-serif;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -17,6 +23,7 @@ html, body {
     position: relative;
     display: inline-block;
     margin-bottom: 20px;
+    margin-left: auto;
 }
 
 .title::before,.title::after {
@@ -124,12 +131,22 @@ html, body {
 .chart-frame.left-align{
     margin-left: 0;
 }
+
 .canvas-input {
-    width: 200px;
-    height: 200px;
+    width: 320px !important;
+    height: 320px !important;
     max-width: 250px;
     max-height: 250px;
     background-color: white;
+}
+
+.chart-wrapper {
+    display: inline-block;
+    padding: 10px;
+    background-color: #ffe6f0;
+    border: 5px dotted white;
+    border-radius: 20px;
+    margin-top: 20px;
 }
 
 .canvas {
@@ -143,6 +160,29 @@ html, body {
     border-radius: 30px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     box-sizing: border-box;
+}
+
+.back-button {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.return-icon {
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.return-text {
+    position: absolute;
+    top: 13%;
+    left: 46.5%;
+}
+
+.return-icon:hover {
+    transform: scale(1.1);
 }
 
 @media (max-width: 400px) {

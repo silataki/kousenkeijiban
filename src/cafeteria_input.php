@@ -28,6 +28,7 @@ $stmt->execute([$facility_name, $date]);
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $data[intval($row['rating'])] = intval($row['count']);
 }
+$totalVotes = array_sum($data);
 ?>
 
 <!DOCTYPE html>
@@ -35,14 +36,14 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $facility_name ?>投票</title>
+    <title>食堂の投票</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h2><?= $facility_name === 'lirary' ? '図書館' : '食堂' ?>の混雑状況を投稿</h2>
+<body class="vote-page">
+    <h2>食堂の混雑状況を投稿</h2>
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-        <p>1~5の値を選んでください：</p>
+        <p>現在の状況を選んでください：</p>
         <select name="rating" required>
             <option value="1">たくさん空いてる</option>
             <option value="2">少し埋まってる</option>
@@ -53,9 +54,11 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         <button type="submit">送信</button>
     </form>
 
-    <h3>投票状況 (<?= $date ?>)</h3>
-    <canvas id="chart" class="canvas-input"></canvas>
-
+    <div class="chart-wrapper">
+        <h3>投票状況 (<?= $date ?>)</h3>
+        <canvas id="chart" class="canvas-input"></canvas>
+        <p><strong>総投票数：<?= $totalVotes ?> 件</strong></p>
+    </div>
     <script>
         const ctx = document.getElementById('chart').getContext('2d');
         const chart = new Chart(ctx, {
@@ -70,5 +73,11 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             }
         });
     </script>
+    <div class="back-button">
+    <a href="siyouritu.php">
+        <img src="return.png" alt="戻る" class="return-icon">
+    </a>
+    <p class="return-text">もどる</p>
+</div>
 </body>
 </html>
