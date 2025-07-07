@@ -132,7 +132,7 @@ $conn->close(); // データベース接続を閉じる
 
     /* 連絡先の矢印 */
     .info-content.contact-content::before {
-        content: "→";
+        content: "gmail → ";
         margin-right: 5px;
         display: inline-block;
     }
