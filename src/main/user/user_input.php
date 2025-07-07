@@ -164,6 +164,14 @@
             background-color: #fafafa; /* ← 背景色を追加 */
         }
 
+        /* ===== スマホ用の設定（ここから） ===== */
+        @media (max-width: 600px) {
+        /* .decorationクラスを持つ要素（装飾用の画像）を非表示にする */
+            .decoration {
+                display: none;
+            }
+        }
+
     </style>
 </head>
 <body>
