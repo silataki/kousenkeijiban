@@ -10,6 +10,8 @@ $data = array_fill(1, 5, 0);
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $data[intval($row['rating'])] = intval($row['count']);
 }
+
+$totalVotes = array_sum($data);
 ?>
 
 <!DOCTYPE html>
@@ -56,5 +58,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         });
     </script>
     <p>投票日：<?= $date ?></p>
+    <p><strong>総投票数：<?= $totalVotes ?> 件</strong></p>
 </body>
 </html>

@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>siyouritu</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nikumaru&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>施設使用状況</h1>
+    <h1 class="title">施設使用状況</h1>
     <div class="facilities">
         <div class="facility-block left-align">
             <div class="facility-title">図書館</div>
@@ -16,7 +17,8 @@
                     <button type="submit" class="library">図書館の使用状況を<br>ポストする</button>
                 </form>
             </div>
-            <iframe src="library_chart.php" width="400" height="400" class="chart-frame"></iframe>
+            
+            <iframe src="library_chart.php" class="chart-frame left-align"></iframe>
         </div>
 
         <div class="facility-block">
