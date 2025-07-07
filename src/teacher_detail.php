@@ -125,7 +125,7 @@ $conn->close(); // データベース接続を閉じる
 
     /* 部屋の場所の丸文字 */
     .info-content.room-content::before {
-        content: "";
+        content: " ";
         margin-right: 5px;
         display: inline-block;
     }
