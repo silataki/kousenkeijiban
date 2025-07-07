@@ -19,24 +19,32 @@ if (session_status() == PHP_SESSION_NONE) {
         }
 
         .global-menu {
-            background-color: rgb(25, 39, 189);
+            border-radius: 25px;
+            background-color: rgb(255, 255, 255);
+
             padding: 10px 20px;
             /* ここからFlexboxの追加 */
             display: flex; /* 子要素を横並びにする */
             align-items: center; /* 垂直方向の中央揃え */
             flex-wrap: wrap; /* 必要に応じて折り返す */
-            color: white; /* ログイン情報の文字色を白に */
+            color: rgb(39, 39, 39); /* ログイン情報の文字色*/
         }
 
         .global-menu a {
-        color: white !important;  /* ← ここが重要！ */
+        color: rgb(0,0,0) !important; /*ここで文字の色を変えられる*/
         text-decoration: none;
         padding: 5px 15px;
         transition: background-color 0.3s ease;
-        }
+        border-left: 2px solid rgb(206, 204, 204); /* 項目の左側に縦線を引く */
+        line-height: 1.2; /* 文字の高さと線を揃える */
 
+        }
+        .global-menu a:first-child {
+            border-left: none;
+        }
+        
         .global-menu a:hover {
-            background-color: #575757;
+            background-color:rgb(206, 204, 204);
         }
 
         .menu-separator {
@@ -53,28 +61,34 @@ if (session_status() == PHP_SESSION_NONE) {
             margin: 0 0 0 15px; /* 左側に少し余白を持たせる */
             white-space: nowrap; /* テキストの折り返しを防ぐ */
         }
+        
+        .border {
+            border: 3px solid rgb(231, 227, 227);
+            border-radius: 25px;
+        }
     </style>
 </head>
 <body>
 
-
-<nav class="global-menu">
-    <a href="/php/main/home/homepage.php">home</a>
-    <a href="/php/main/siyouritu/siyouritu.php">利用状況</a>
-    <a href="/php/main/teacher/teacher_list.php">教員情報</a>
-    <a href="/php/main/link/link_output.php">リンク集</a>
-    <a href="/php/main/post/post.php">投稿</a>
-    <a href="/php/main/login/login_input.php">ログイン</a>
-    <a href="/php/main/login/logout_input.php">ログアウト</a>
-    <a href="/php/main/user/user_input.php">ユーザ登録</a>
-    
-    <div class="menu-separator"></div> <?php
-    // ログインしていれば名前を表示
-    if (isset($_SESSION['users'])) {
-        echo '<p class="login-info">ログイン中：', htmlspecialchars($_SESSION['users']['name']), '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>';
-    }
-    ?>
-</nav>
+<div class="border">
+    <nav class="global-menu">
+        <a href="/php/main/home/homepage.php">home</a>
+        <a href="/php/main/siyouritu/siyouritu.php">利用状況</a>
+        <a href="/php/main/teacher/teacher_list.php">教員情報</a>
+        <a href="/php/main/link/link_output.php">リンク集</a>
+        <a href="/php/main/post/post.php">投稿</a>
+        <a href="/php/main/login/login_input.php">ログイン</a>
+        <a href="/php/main/login/logout_input.php">ログアウト</a>
+        <a href="/php/main/user/user_input.php">ユーザ登録</a>
+        
+        <div class="menu-separator"></div> <?php
+        // ログインしていれば名前を表示
+        if (isset($_SESSION['users'])) {
+            echo '<p class="login-info">ログイン中：', htmlspecialchars($_SESSION['users']['name']), '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>';
+        }
+        ?>
+    </nav>
+</div>
 
 
 </body>
