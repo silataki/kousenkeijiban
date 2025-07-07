@@ -5,10 +5,63 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 ?>
 
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>メニュー例</title>
+    <style>
+        /* ここに既存のCSSスタイルを追加 */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        .global-menu {
+            background-color: rgb(25, 39, 189);
+            padding: 10px 20px;
+            /* ここからFlexboxの追加 */
+            display: flex; /* 子要素を横並びにする */
+            align-items: center; /* 垂直方向の中央揃え */
+            flex-wrap: wrap; /* 必要に応じて折り返す */
+            color: white; /* ログイン情報の文字色を白に */
+        }
+
+        .global-menu a {
+        color: white !important;  /* ← ここが重要！ */
+        text-decoration: none;
+        padding: 5px 15px;
+        transition: background-color 0.3s ease;
+        }
+
+        .global-menu a:hover {
+            background-color: #575757;
+        }
+
+        .menu-separator {
+            /* この要素がログイン情報を右に押しやる役割を担う */
+            flex-grow: 1; /* 利用可能なスペースをすべて占める */
+            /* または単純に margin-left: auto; でも可。flex-growの方が確実です。 */
+            margin-left: auto;
+            /* 必要であれば高さやボーダーを設定 */
+            /* border-right: 1px solid #777; */
+            /* height: 20px; */
+        }
+
+        .login-info {
+            margin: 0 0 0 15px; /* 左側に少し余白を持たせる */
+            white-space: nowrap; /* テキストの折り返しを防ぐ */
+        }
+    </style>
+</head>
+<body>
+
+
 <nav class="global-menu">
     <a href="/php/main/home/homepage.php">home</a>
     <a href="/php/main/siyouritu/siyouritu.php">利用状況</a>
-    <a href="/php/main/teacher/teacher_show.php">教員情報</a>
+    <a href="/php/main/teacher/teacher_list.php">教員情報</a>
     <a href="/php/main/link/link_output.php">リンク集</a>
     <a href="/php/main/post/post.php">投稿</a>
     <a href="/php/main/login/login_input.php">ログイン</a>
@@ -17,11 +70,12 @@ if (session_status() == PHP_SESSION_NONE) {
     
     <div class="menu-separator"></div> <?php
     // ログインしていれば名前を表示
-    if (isset($_SESSION['customer'])) {
-        echo '<p class="login-info">ログイン中：', htmlspecialchars($_SESSION['customer']['name']), '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>';
+    if (isset($_SESSION['users'])) {
+        echo '<p class="login-info">ログイン中：', htmlspecialchars($_SESSION['users']['name']), '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>';
     }
     ?>
 </nav>
+
 
 </body>
 </html>
