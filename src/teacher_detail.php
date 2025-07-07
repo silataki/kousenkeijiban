@@ -71,7 +71,7 @@ $conn->close(); // データベース接続を閉じる
         <?php else: // 先生のデータが見つからなかった場合 ?>
             <p>指定された先生は見つかりませんでした。</p>
         <?php endif; ?>
-        <a href="index.php" class="back-link">← 先生リストに戻る</a>
+        <a href="teacher_list.php" class="back-link">← 先生リストに戻る</a>
     </div>
 </body>
 </html>
