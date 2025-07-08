@@ -229,34 +229,34 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';?> 
 
     <script>
-    // idが'profile_pic'の要素（ファイル選択ボタン）を取得
-    const fileInput = document.getElementById('profile_pic');
-    // idが'image_preview'の要素（画像表示エリア）を取得
-    const previewImage = document.getElementById('image_preview');
+        // idが'profile_pic'の要素（ファイル選択ボタン）を取得
+        const fileInput = document.getElementById('profile_pic');
+        // idが'image_preview'の要素（画像表示エリア）を取得
+        const previewImage = document.getElementById('image_preview');
 
-    // ファイル選択ボタンの値が変わったとき（ファイルが選択されたとき）に処理を実行
-    fileInput.addEventListener('change', function(event)) {
-        // 選択されたファイルを取得
-        const file = event.target.files[0];
+        // ファイル選択ボタンの値が変わったとき（ファイルが選択されたとき）に処理を実行
+        fileInput.addEventListener('change', function(event) {
+            // 選択されたファイルを取得
+            const file = event.target.files[0];
 
-        // ファイルが選択されていれば、以下の処理を実行
-        if (file) {
-            // FileReaderオブジェクトを作成
-            const reader = new FileReader();
+            // ファイルが選択されていれば、以下の処理を実行
+            if (file) {
+                // FileReaderオブジェクトを作成
+                const reader = new FileReader();
 
-            // ファイルの読み込みが完了したときの処理を定義
-            reader.onload = function(e) {
-                // 読み込んだ画像データをプレビュー用のimg要素のsrc属性に設定
-                previewImage.src = e.target.result;
+                // ファイルの読み込みが完了したときの処理を定義
+                reader.onload = function(e) {
+                    // 読み込んだ画像データをプレビュー用のimg要素のsrc属性に設定
+                    previewImage.src = e.target.result;
+                }
+
+                // 選択されたファイルをData URLとして読み込む
+                reader.readAsDataURL(file);
+            } else {
+                // ファイルが選択されなかった場合は、プレビューをクリア
+                previewImage.src = "";
             }
-
-            // 選択されたファイルをData URLとして読み込む
-            reader.readAsDataURL(file);
-        } else {
-            // ファイルが選択されなかった場合は、プレビューをクリア
-            previewImage.src = "";
-        }
-    };
+        });
     </script>
 </body>
 </html>
