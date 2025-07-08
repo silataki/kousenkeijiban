@@ -2,21 +2,47 @@
 session_start();
 
 // Set hardcoded user ID 1 in session for testing only if not set
+/*
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['user_id'] = 1; 
 }
+*/
+
+/* tomoka add */
+if (!isset($_SESSION['users'])) {
+    echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
+    exit;
+}
+
+/*
+if (!isset($_SESSION['user_id'])) {
+    echo "セッションIDが存在しません。ログインし直してください。";
+    exit;
+}
+*/
+
+//$users = $_SESSION['users'];
+/* add finish */
 
 // Logged-in user ID (who is using the app)
-$loggedInUserId = $_SESSION['user_id'];
+//$loggedInUserId = $_SESSION['user_id'];
+$loggedInUserId = $_SESSION['users']['id'];
+//$user_id = $_SESSION['users']['id'];
 
 // Profile user ID (whose profile is being viewed), default to logged-in user if none provided
+/* user not fuund */
+/* tomoka change */
 $profileUserId = isset($_GET['id']) ? intval($_GET['id']) : $loggedInUserId;
+/* ↓ */
+//$profileUserId = $_SESSION['users']['id'];
+
 
 // Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "testtest";
+
 
 
 // Create connection
@@ -101,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $post_content = trim($_POST['post_content'] ?? '');
     if ($post_content !== "") {
         $stmt = $conn->prepare("INSERT INTO posts (user_id, post_date, post_time, post_content) VALUES (?, CURDATE(), CURTIME(), ?)");
-        $stmt->bind_param("is", $loggedInUserId, $post_content);
+        $stmt->bind_param("ss", $loggedInUserId, $post_content);
         if ($stmt->execute()) {
             $message = "Post submitted successfully!";
         } else {
@@ -114,10 +140,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 // Fetch current user info for top box
+/* tomoka change */
+
 $stmt = $conn->prepare("SELECT name, mail, profile_pic FROM users WHERE id = ?");
 $stmt->bind_param("i", $profileUserId);
 $stmt->execute();
 $result = $stmt->get_result();
+
+
+/* start */
+/*
+$stmt = $conn->prepare("SELECT profile_pic FROM users WHERE id = ?");
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+*/
+/* end */
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -185,7 +223,7 @@ $conn->close();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="jp">
 <head>
 <meta charset="UTF-8" />
 <title>User Profile & Posts</title>
@@ -197,7 +235,7 @@ $conn->close();
   /* Fixed top profile box */
   .profile-box {
     position: fixed;
-    top: 0;
+    top: 55px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -269,7 +307,7 @@ $conn->close();
 
   /* Container for posts, below fixed profile box */
   .posts-container {
-    margin: 130px auto 30px auto; /* space for fixed header */
+    margin: 185px auto 30px auto; /* space for fixed header */
     width: 60vw;
     max-height:  90vh; /*500px*/
     overflow-y: auto;
@@ -341,7 +379,7 @@ $conn->close();
 
   .date-box {
     position: fixed;
-    top: 0;
+    top: 55px;
     right: 0; /* adjust as needed */
     width: 15vw;
     height: 160px; /* roughly top third height */
@@ -393,7 +431,7 @@ $conn->close();
   .home-button {
     position: fixed;
     /*top: 5px;*/
-    top: 5px;
+    top: 55px;
     left: 20px;
     padding: 8px 15px;
     width: 12vw;
@@ -414,7 +452,7 @@ $conn->close();
 
   .search-box {
     position: fixed;
-    top: 50px; /* below homepage button */
+    top: 55px; /* below homepage button */
     left: 20px;
     width: 12vw;
     background-color: #fff0f6;
@@ -770,15 +808,84 @@ $conn->close();
     align-items: center;
   }
 
+  .message {
+    transition: opacity 1s ease;
+  }
+  .message.error {
+    color: red;
+  }
 
+
+  .global-menu {
+    position: fixed;
+    top: 0;                    /* ensure it's pinned to the top */
+    left: 0;                   /* ensure it starts at the left edge */
+    width: 99vw;              /* span full viewport width */
+    z-index: 1000;             /* make sure it appears on top of other elements */
+    background-color: rgb(255, 19, 160);
+    padding: 10px 20px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    color: white;
+  }
+
+
+  .global-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  .global-menu a:hover {
+    background-color:rgb(248, 124, 197);
+  }
+
+  .menu-separator {
+            /* この要素がログイン情報を右に押しやる役割を担う */
+    flex-grow: 1; /* 利用可能なスペースをすべて占める */
+            /* または単純に margin-left: auto; でも可。flex-growの方が確実です。 */
+    margin-left: auto;
+            /* 必要であれば高さやボーダーを設定 */
+            /* border-right: 1px solid #777; */
+            /* height: 20px; */
+  }
+
+  .login-info {
+    margin: 0 0 0 15px; /* 左側に少し余白を持たせる */
+    white-space: nowrap; /* テキストの折り返しを防ぐ */
+  }
 </style>
 
 </head>
 <body>
 
+
+<nav class="global-menu">
+    <a href="/php/main/home/homepage.php">home</a>
+    <a href="/php/main/siyouritu/siyouritu.php">利用状況</a>
+    <a href="/php/main/teacher/teacher_show.php">教員情報</a>
+    <a href="/php/main/link/link_output.php">リンク集</a>
+    <a href="/php/main/post/post.php">投稿</a>
+    <a href="/php/main/login/login_input.php">ログイン</a>
+    <a href="/php/main/login/logout_input.php">ログアウト</a>
+    <a href="/php/main/user/user_input.php">ユーザ登録</a>
+    
+    <div class="menu-separator"></div> <?php
+    // ログインしていれば名前を表示
+    if (isset($_SESSION['users'])) {
+        echo '<p class="login-info">ログイン中：', htmlspecialchars($_SESSION['users']['name']), '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>';
+    }
+    ?>
+</nav>
+
+
+
 <input type="hidden" id="user_id" value="<?php echo $profileUserId; ?>" />
 
-<a href="home.php" class="home-button">HOMEPAGE</a>
+
 
 <div class="background"></div>
 
@@ -817,7 +924,13 @@ $conn->close();
 
 
   <img src="side_cat.svg" alt="Overlay" class="overlay-image2">
+  <!-- tomoka change -->
+  <!--
   <img src="<?php echo $profilePic; ?>" alt="Profile Picture" class="profile-pic" />
+  -->
+  <!-- start -->
+  <img src="show_profile_pic.php?id=<?= htmlspecialchars($profileUserId) ?>" alt="Profile Picture" class="profile-pic" />
+  <!-- end -->
   <div class="profile-info">
     <div class="name"><?php echo $name; ?></div>
     <div class="mail"><?php echo $mail; ?></div>
@@ -828,7 +941,7 @@ $conn->close();
     </form>
 
     <?php if ($message !== ""): ?>
-      <div class="message <?php echo strpos($message, 'Error') === 0 ? 'error' : ''; ?>">
+      <div id="flash-message" class="message <?php echo strpos($message, 'Error') === 0 ? 'error' : ''; ?>">
         <?php echo htmlspecialchars($message); ?>
       </div>
     <?php endif; ?>
@@ -866,9 +979,19 @@ $currentDateJP = date('m') . '月' . date('d') . '日';
         $hasStory = !empty($post['story']);
         $storyData = $hasStory ? base64_encode($post['story']) : '';
 
+
         echo '<div class="post-box">';
         echo '<div class="profile-pic-container">';
-        echo '<img src="' . htmlspecialchars($post['profile_pic']) . '" alt="Profile Pic" class="post-profile-pic" />';
+        /*tomoka chenge */
+        //echo '<img src="' . htmlspecialchars($post['profile_pic']) . '" alt="Profile Pic" class="post-profile-pic" />';
+        /*
+        echo '<img src="show_profile_pic.php?id=<?= htmlspecialchars($post['profile_pic']) ?>" alt="Profile Picture" class="profile-pic" />';
+        */
+        //echo '<img src="show_profile_pic.php?id=' . htmlspecialchars($post['profile_pic']) . '" alt="Profile Picture" class="post-profile-pic" />';
+        $base64Image = base64_encode($post['profile_pic']);
+        echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Profile Pic" class="post-profile-pic" />';
+        
+
         if ($hasStory) {
           echo '<button class="story-btn" data-postid="' . $post['post_id'] . '" data-story="' . $storyData .'" ;">📸</button>';
         }
@@ -925,9 +1048,14 @@ $currentDateJP = date('m') . '月' . date('d') . '日';
     
       <img src="crown2.svg" alt="Overlay" >
     -->
+    <!--
       <img src="<?= htmlspecialchars($topUser['profile_pic']) ?>" alt="Profile Picture">
-        
-        
+    -->  
+
+      <?php 
+      $base64Image = base64_encode($topUser['profile_pic']);
+      ?>
+      <img src="data:image/jpeg;base64,<?= base64_encode($topUser['profile_pic']) ?>" alt="Profile Picture">
 
       <div><?= htmlspecialchars($topUser['name'])?></div>
     <?php else: ?>
@@ -1255,6 +1383,16 @@ document.addEventListener('click', function (e) {
 
 
 
+window.addEventListener('DOMContentLoaded', () => {
+  const msg = document.getElementById('flash-message');
+  if (msg) {
+    setTimeout(() => {
+      msg.style.transition = 'opacity 1s';
+      msg.style.opacity = '0';
+      setTimeout(() => msg.style.display = 'none', 1000); // Wait for fade-out
+    }, 3000); // 3 seconds
+  }
+});
 
 
 
