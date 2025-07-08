@@ -4,11 +4,11 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
     session_start();
-    require $_SERVER['DOCUMENT_ROOT'] . '/menu.php'; /*'/php/menu.php'*/
+    require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php'; /*'/php/menu.php'*/
 
     // ログイン中のリダイレクト処理はここで行う
     if (isset($_SESSION['users']) && strpos($_SERVER['REQUEST_URI'], '/user_input.php') === false) { // user_input.php自体へのアクセスは許可
-        header('Location: /please_logout.php');/*/php/main/user/please_logout.php'*/
+        header('Location: /php/main/user/please_logout.php');/*/php/main/user/please_logout.php'*/
         exit;
     }
 
@@ -226,7 +226,7 @@
         ?>
     </div>
 
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/footer.php';?> 
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';?> 
 
     <script>
     // idが'profile_pic'の要素（ファイル選択ボタン）を取得
