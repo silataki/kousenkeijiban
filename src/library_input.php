@@ -8,13 +8,46 @@ $facility_name = explode('_', $facility)[0];
 
 require_once 'db_config.php';
 
+/*tomoka add*/
+/* すでに重複している票はデータベースより削除してください */
+/*　でなければバグります */
+/*start*/
+session_start();
+if (!isset($_SESSION['users']['id'])) {
+    echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
+    exit;
+}
+$user_id = $_SESSION['users']['id'];
+$date = date('Y-m-d');
+/*すでに投票済みかチェック*/
+//$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+$stmt->execute([$user_id, $facility_name, $date]);
+$alreadyVoted = $stmt->fetchColumn();
+
+if ($alreadyVoted > 0) {
+    echo "<p>投票ありがとうございました！ <a href='siyouritu.php'>戻る</a></p>";
+    exit;
+}
+
+/*end*/
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating = intval($_POST['rating']);
     $facility = $facility_name;
     $date = date('Y-m-d');
 
-    $stmt = $pdo->prepare("INSERT INTO votes (facility, rating, vote_date) VALUES (?, ?, ?)");
-    $stmt->execute([$facility, $rating, $date]);
+    /* tomoka add */
+    /* start */
+
+    /*投票を記録*/
+    $stmt = $pdo->prepare("INSERT INTO votes (user_id, facility, rating, vote_date) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$user_id, $facility_name, $rating, $date]);
+
+    // $stmt = $pdo->prepare("INSERT INTO votes (facility, rating, vote_date) VALUES (?, ?, ?)");
+    // $stmt->execute([$facility, $rating, $date]);
+    /* end */
 
     header("Location: siyouritu.php");
     exit();
@@ -75,7 +108,7 @@ $totalVotes = array_sum($data);
     </script>
     <div class="back-button">
     <a href="siyouritu.php">
-        <img src="return.png" alt="戻る" class="return-icon">
+        <img src="/php/main/siyouritu/image/return.png" alt="戻る" class="return-icon">
     </a>
     <p class="return-text">もどる</p>
 </div>
