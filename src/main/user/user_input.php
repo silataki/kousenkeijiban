@@ -4,11 +4,11 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
     session_start();
-    /*require $_SERVER['DOCUMENT_ROOT'] . '/menu.php'; /*'/php/menu.php';*/
+    require $_SERVER['DOCUMENT_ROOT'] . '/menu.php'; /*'/php/menu.php'*/
 
     // ログイン中のリダイレクト処理はここで行う
-    if (isset($_SESSION['users']) && strpos($_SERVER['REQUEST_URI'], 'user_input.php') === false) { // user_input.php自体へのアクセスは許可
-        header('Location: /php/main/user/please_logout.php');/*/php/main/user/please_logout.php'*/
+    if (isset($_SESSION['users']) && strpos($_SERVER['REQUEST_URI'], '/user_input.php') === false) { // user_input.php自体へのアクセスは許可
+        header('Location: /please_logout.php');/*/php/main/user/please_logout.php'*/
         exit;
     }
 
@@ -226,7 +226,7 @@
         ?>
     </div>
 
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/php/footer.php';?> 
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/footer.php';?> 
 
     <script>
     // idが'profile_pic'の要素（ファイル選択ボタン）を取得
@@ -235,7 +235,7 @@
     const previewImage = document.getElementById('image_preview');
 
     // ファイル選択ボタンの値が変わったとき（ファイルが選択されたとき）に処理を実行
-    fileInput.addEventListener('change', function(event) {
+    fileInput.addEventListener('change', function(event)) {
         // 選択されたファイルを取得
         const file = event.target.files[0];
 
@@ -256,7 +256,7 @@
             // ファイルが選択されなかった場合は、プレビューをクリア
             previewImage.src = "";
         }
-    });
+    };
     </script>
 </body>
 </html>
