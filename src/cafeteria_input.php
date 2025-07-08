@@ -8,13 +8,32 @@ $facility_name = explode('_', $facility)[0];
 
 require_once 'db_config.php';
 
+session_start();
+if (!isset($_SESSION['users']['id'])) {
+    echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
+    exit;
+}
+$user_id = $_SESSION['users']['id'];
+$date = date('Y-m-d');
+/*すでに投票済みかチェック*/
+//$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+$stmt->execute([$user_id, $facility_name, $date]);
+$alreadyVoted = $stmt->fetchColumn();
+
+if ($alreadyVoted > 0) {
+    echo "<p>投票ありがとうございました！ <a href='siyouritu.php'>戻る</a></p>";
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating = intval($_POST['rating']);
     $facility = $facility_name;
     $date = date('Y-m-d');
 
-    $stmt = $pdo->prepare("INSERT INTO votes (facility, rating, vote_date) VALUES (?, ?, ?)");
-    $stmt->execute([$facility, $rating, $date]);
+     /*投票を記録*/
+    $stmt = $pdo->prepare("INSERT INTO votes (user_id, facility, rating, vote_date) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$user_id, $facility_name, $rating, $date]);
 
     header("Location: siyouritu.php");
     exit();
@@ -39,6 +58,7 @@ $totalVotes = array_sum($data);
     <title>食堂の投票</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
 </head>
 <body class="vote-page">
     <h2>食堂の混雑状況を投稿</h2>

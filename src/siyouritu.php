@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>使用率</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nikumaru&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <h1 class="title">施設使用状況</h1>
+    <div class="title-wrapper">
+        <h1 class="title">施設使用状況</h1>
+    </div>
     <div class="facilities">
         <div class="facility-block left-align">
             <div class="facility-title">図書館</div>
