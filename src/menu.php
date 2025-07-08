@@ -65,6 +65,8 @@ if (session_status() == PHP_SESSION_NONE) {
         .border {
             border: 3px solid rgb(231, 227, 227);
             border-radius: 25px;
+            position: relative; /* z-indexを有効にするため */
+            z-index: 20;      /* 他の要素より手前に表示するための重なり順 */
         }
     </style>
 </head>
