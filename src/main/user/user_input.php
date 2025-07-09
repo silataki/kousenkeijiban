@@ -3,8 +3,14 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
-    session_start();
-    require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php'; /*'/php/menu.php'*/
+    //session_start();
+    //require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php'; /*'/php/menu.php'*/
+
+    // セッションがまだ開始されていなければ開始する
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
 
     // ログイン中のリダイレクト処理はここで行う
     if (isset($_SESSION['users']) && strpos($_SERVER['REQUEST_URI'], '/user_input.php') === false) { // user_input.php自体へのアクセスは許可
@@ -16,9 +22,9 @@
 
     // 既存ユーザーの情報を取得する場合
     if (isset($_SESSION['users'])) {
-        $name     = $_SESSION['users']['name'];
-        $login    = $_SESSION['users']['login'];
-        $password = $_SESSION['users']['password'];
+        $name     = $_SESSION['users']['name'] ?? '';
+        $login    = $_SESSION['users']['login'] ?? '';
+        $password = $_SESSION['users']['password'] ?? '';
         $mail     = $_SESSION['users']['mail'] ?? '';
     }
 
@@ -55,7 +61,7 @@
         }
 
         .paw-prints-top-left {
-            top: 20px;
+            top: 60px;
             left: 20px;
             width: 200px;
             height: 200px;
@@ -261,3 +267,6 @@
 </body>
 </html>
 
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
+?>
