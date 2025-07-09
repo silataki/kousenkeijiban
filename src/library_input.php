@@ -8,23 +8,23 @@ $facility_name = explode('_', $facility)[0];
 
 require_once 'db_config.php';
 
-// session_start();
-// if (!isset($_SESSION['users']['id'])) {
-//     echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
-//     exit;
-// }
-// $user_id = $_SESSION['users']['id'];
-// $date = date('Y-m-d');
-// /*すでに投票済みかチェック*/
-// //$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
-// $stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
-// $stmt->execute([$user_id, $facility_name, $date]);
-// $alreadyVoted = $stmt->fetchColumn();
+session_start();
+if (!isset($_SESSION['users']['id'])) {
+    echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
+    exit;
+}
+$user_id = $_SESSION['users']['id'];
+$date = date('Y-m-d');
+/*すでに投票済みかチェック*/
+//$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+$stmt->execute([$user_id, $facility_name, $date]);
+$alreadyVoted = $stmt->fetchColumn();
 
-// if ($alreadyVoted > 0) {
-//     echo "<p>投票ありがとうございました！ <a href='siyouritu.php'>戻る</a></p>";
-//     exit;
-// }
+if ($alreadyVoted > 0) {
+    echo "<p>投票ありがとうございました！ <a href='siyouritu.php'>戻る</a></p>";
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating = intval($_POST['rating']);

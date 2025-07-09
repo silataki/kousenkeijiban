@@ -10,6 +10,7 @@ body {
     text-align: center;
     background-color: #ffcfdc;
     font-family: 'Kosugi Maru', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    font-size: 40px;
 }
 
 html, body {
@@ -68,10 +69,6 @@ html, body {
     box-sizing: border-box;
 }
 
-.left-align {
-    margin-left: -20px;
-}
-
 .facility-title{
     font-weight: bold;  
     margin-bottom: 20px;
@@ -86,13 +83,14 @@ html, body {
 }
 
 .library, .cafeteria{
+    font-family: 'Kosugi Maru', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
     width: 600px;
     height: 180px;
     min-height: 150px;
     max-width: 450px;
     text-align: center;
-    padding: 20px;
-    font-size: 40px;
+    padding-top: 60px;
+    font-size: 30px;
     border-radius: 30px;
     background-size: cover;
     background-position: center 45%;
@@ -121,7 +119,7 @@ html, body {
 }
 
 .chart-frame{
-    width: 100%;
+    width: 500px;
     max-width: 600px;
     height: 500px;
     margin: 20px auto;
@@ -225,7 +223,4 @@ html, body {
         align-items: center;
     }
 
-    .left-align {
-        justify-content: center;
-    }
 }

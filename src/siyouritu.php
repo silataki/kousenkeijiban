@@ -13,7 +13,7 @@
         <h1 class="title">施設使用状況</h1>
     </div>
     <div class="facilities">
-        <div class="facility-block left-align">
+        <div class="facility-block">
             <div class="facility-title">図書館</div>
             <div class="button-container">
                 <form action="library_input.php" method="get">
@@ -21,7 +21,7 @@
                 </form>
             </div>
 
-            <iframe src="library_chart.php" class="chart-frame left-align"></iframe>
+            <iframe src="library_chart.php" class="chart-frame"></iframe>
         </div>
 
         <div class="facility-block">
