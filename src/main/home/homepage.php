@@ -1,6 +1,6 @@
 <?php
 session_start();
-require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
+//require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
 
 if (!isset($_SESSION['users'])) {
     echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
@@ -8,6 +8,23 @@ if (!isset($_SESSION['users'])) {
 }
 
 $users = $_SESSION['users'];
+
+
+/* tomoka add */
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "testtest";
+
+
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+/* add finish */
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +58,7 @@ $users = $_SESSION['users'];
         .profile-panel {
             position: fixed;
             top: 0;
-            right: -400px;
+            right: -700px;
             width: 400px;
             height: 100%;
             background: #f1f1f1;
@@ -141,7 +158,7 @@ $users = $_SESSION['users'];
 
 <!--追加分終わり-->
 
-<div class="profile-tab" onclick="toggleProfile(true)">Profile</div>
+<!-- <div class="profile-tab" onclick="toggleProfile(true)">Profile</div>
 
 <div class="profile-panel" id="profilePanel">
     <span class="close-btn" onclick="toggleProfile(false)">&times;</span>
@@ -193,7 +210,11 @@ $users = $_SESSION['users'];
         document.getElementById(field + 'Text').style.display = 'none';
         document.getElementById(field + 'Input').style.display = 'inline';
     }
-</script>
+</script> -->
+
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
+?>
 
 </body>
 </html>

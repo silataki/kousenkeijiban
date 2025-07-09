@@ -1,8 +1,8 @@
 <?php
 $host = '127.0.0.1';
-$db   = 'facility_usage';
+$db   = 'usage_db';
 $user = 'root';
-$pass = 'password';
+$pass = '';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

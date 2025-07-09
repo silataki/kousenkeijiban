@@ -1,3 +1,10 @@
+<?php
+// セッションがまだ開始されていなければ開始する
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -5,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
-
+    <title>ログイン</title>
     <link rel="stylesheet" href="style.css">
     <style>
         /* ページの基本設定 */
@@ -125,13 +132,6 @@
         .login-button:active {
             transform: translateY(2px); /* 少し下に移動 */
         }
-        /* ===== スマホ用の設定（ここから） ===== */
-        @media (max-width: 600px) {
-        /* .decorationクラスを持つ要素（装飾用の画像）を非表示にする */
-            .decoration {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
@@ -154,11 +154,13 @@
                 <input type="password" name="password">
             </div>
 
-            <button type="submit" class="login-button">login</button>
+            <button type="submit" class="login-button">login</button><br>
+            
         </form>
         <form action="/php/main/user/user_input.php" method="post">
             <button type="submit" class="login-button">新規登録</button>
         </form>
+
     </div>
 
 </body>

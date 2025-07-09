@@ -1,4 +1,10 @@
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';?>
+<?php 
+// セッションがまだ開始されていなければ開始する
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -226,3 +232,6 @@
         </div>
     </div></body>
 </html>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/php/menu.php';
+?>
