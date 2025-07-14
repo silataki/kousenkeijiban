@@ -205,8 +205,7 @@ $conn->close(); // データベース接続を閉じる
                 <span class="info-label">コメント</span>
                 <p class="info-content"><?php echo nl2br(htmlspecialchars($teacher_data['comments'])); ?></p>
             </div>
-
-            <!-- <img src="nyan.png" alt="猫のイラスト" class="cat-image">  --> 
+        
 
         <?php else: // 先生のデータが見つからなかった場合 ?>
             <p>指定された先生は見つかりませんでした。</p>
