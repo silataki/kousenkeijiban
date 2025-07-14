@@ -57,7 +57,7 @@ $totalVotes = array_sum($data);
             }
         });
     </script>
-    <p>投票日：<?= $date ?></p>
+    <p><strong>投票日：<?= $date ?></strong></p>
     <p><strong>総投票数：<?= $totalVotes ?> 件</strong></p>
 </body>
 </html>

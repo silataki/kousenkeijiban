@@ -17,7 +17,7 @@
             <div class="facility-title">図書館</div>
             <div class="button-container">
                 <form action="library_input.php" method="get">
-                    <button type="submit" class="library">図書館の使用状況を<br>ポストする</button>
+                    <button class="library">図書館の使用状況を<br>ポストする</button>
                 </form>
             </div>
 
@@ -28,7 +28,7 @@
             <div class="facility-title">食堂</div>
             <div class="button-container">
                 <form action="cafeteria_input.php" method="get">
-                    <button type="submit" class="cafeteria">食堂の使用状況を<br>ポストする</button>
+                    <button class="cafeteria">食堂の使用状況を<br>ポストする</button>
                 </form>
             </div>
             <iframe src="cafeteria_chart.php" width="400" height="400" class="chart-frame"></iframe>

@@ -10,7 +10,7 @@ body {
     text-align: center;
     background-color: #ffcfdc;
     font-family: 'Kosugi Maru', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 html, body {
@@ -137,11 +137,16 @@ html, body {
 }
 
 .canvas-input {
-    width: 320px !important;
-    height: 320px !important;
-    max-width: 250px;
-    max-height: 250px;
-    background-color: white;
+    width: 500px;
+    height: 300px;
+    max-width: 600px;
+    max-height: 400px;
+    background-color: #ffcfdc;
+    border-radius: 30px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.05);
+    display: block;
+    overflow: hidden;
+    margin: 20px auto;
 }
 
 .chart-wrapper {
@@ -169,24 +174,75 @@ html, body {
 .back-button {
     margin-top: 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
 }
 
 .return-icon {
-    width: 120px;
+    width: 160px;
     height: auto;
+    margin: 15px auto 0 auto;
     cursor: pointer;
     transition: transform 0.2s;
+    z-index: 1;
 }
 
 .return-text {
     position: absolute;
-    top: 13%;
-    left: 46.5%;
+    top: 30.5%;
+    left: 46%;
+    font-size: 20px;
+    margin: 15px auto 0 auto;
+    text-align: center;
+    z-index: 2;
 }
 
 .return-icon:hover {
     transform: scale(1.1);
+}
+
+/* セレクトボックスを可愛く */
+select {
+    padding: 10px 20px;
+    border: 2px solid #ffb6c1;
+    border-radius: 20px;
+    background-color: #ffe4ec;
+    font-size: 16px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #555;
+    box-shadow: 2px 2px 6px rgba(255, 182, 193, 0.5);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+select:hover {
+    background-color: #ffd6e6;
+    cursor: pointer;
+}
+
+/* ボタンを可愛く */
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #ffb6c1;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 2px 2px 6px rgba(255, 182, 193, 0.5);
+    transition: all 0.3s ease;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+button[type="submit"]:hover {
+    background-color: #ff8da1;
+    cursor: pointer;
+}
+
+.chart-text {
+    font-size: 20px;
 }
 
 @media (max-width: 400px) {
@@ -223,4 +279,11 @@ html, body {
         align-items: center;
     }
 
+    .return-text {
+        margin: 15px auto 0 auto;
+    }
+
+    .return-icon {
+        margin: 0px auto 0px auto;
+    }
 }

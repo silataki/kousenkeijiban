@@ -75,8 +75,9 @@ $totalVotes = array_sum($data);
     </form>
 
     <div class="chart-wrapper">
-        <h3>投票状況 (<?= $date ?>)</h3>
+        <h3>投票状況</h3>
         <canvas id="chart" class="canvas-input"></canvas>
+        <p><strong>投票日：<?= $date ?></strong></p>
         <p><strong>総投票数：<?= $totalVotes ?> 件</strong></p>
     </div>
     <script>
@@ -95,7 +96,7 @@ $totalVotes = array_sum($data);
     </script>
     <div class="back-button">
     <a href="siyouritu.php">
-        <img src="/php/main/siyouritu/image/return.png" alt="戻る" class="return-icon">
+        <img src="/return.png" alt="戻る" class="return-icon">
     </a>
     <p class="return-text">もどる</p>
 </div>
