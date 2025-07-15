@@ -29,6 +29,14 @@ html, body {
     font-size: 48px;
     position: relative;
     display: inline-block;
+    gap: 10px;
+}
+
+.title-gif {
+    width: 200px;
+    height: auto;
+    position: absolute;
+    left: 40px;
 }
 
 .title::before,.title::after {

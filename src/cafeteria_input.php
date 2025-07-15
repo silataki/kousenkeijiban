@@ -32,8 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date = date('Y-m-d');
 
      /*投票を記録*/
-    $stmt = $pdo->prepare("INSERT INTO votes (user_id, facility, rating, vote_date) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$user_id, $facility_name, $rating, $date]);
+    $time = date('H:i:s');
+    $stmt = $pdo->prepare("INSERT INTO votes (facility, rating, vote_date, user_id, vote_time) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$facility, $rating, $date, $user_id, $time]);
 
     header("Location: siyouritu.php");
     exit();

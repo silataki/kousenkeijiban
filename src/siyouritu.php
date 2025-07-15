@@ -11,6 +11,7 @@
 <body>
     <div class="title-wrapper">
         <h1 class="title">施設使用状況</h1>
+        <img src="neko2.gif" alt="装飾GIF" class="title-gif">
     </div>
     <div class="facilities">
         <div class="facility-block">
