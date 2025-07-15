@@ -55,7 +55,7 @@ $totalVotes = array_sum($data);
         const chart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['たくさん空いてる', '少し埋まってる', '4割ほど埋まってる', '8割ほど埋まってる', '満席！誰も座れない！'],
+                labels: ['1. たくさん空いてる', '2. 少し埋まってる', '3. 4割ほど埋まってる', '4. 8割ほど埋まってる', '5. 満席！誰も座れない！'],
                 datasets: [{
                     label: '投票数',
                     data: <?= json_encode(array_values($data)) ?>,

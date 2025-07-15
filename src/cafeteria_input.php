@@ -65,11 +65,11 @@ $totalVotes = array_sum($data);
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
         <p>現在の状況を選んでください：</p>
         <select name="rating" required>
-            <option value="1">たくさん空いてる</option>
-            <option value="2">少し埋まってる</option>
-            <option value="3">4割ほど埋まってる</option>
-            <option value="4">8割ほど埋まってる</option>
-            <option value="5">満席！誰も座れない！</option>
+            <option value="1">1. たくさん空いてる</option>
+            <option value="2">2. 少し埋まってる</option>
+            <option value="3">3. 4割ほど埋まってる</option>
+            <option value="4">4. 8割ほど埋まってる</option>
+            <option value="5">5. 満席！誰も座れない！</option>
         </select>
         <button type="submit">送信</button>
     </form>
@@ -85,7 +85,7 @@ $totalVotes = array_sum($data);
         const chart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['たくさん空いてる', '少し埋まってる', '4割ほど埋まってる' ,'8割埋まってる', '満席！誰も座れない！'],
+                labels: ['1. たくさん空いてる', '2. 少し埋まってる', '3. 4割ほど埋まってる' ,'4. 8割埋まってる', '5. 満席！誰も座れない！'],
                 datasets: [{
                     label: '投票数',
                     data: <?= json_encode(array_values($data)) ?>,
