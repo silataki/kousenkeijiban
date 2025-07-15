@@ -8,23 +8,23 @@ $facility_name = explode('_', $facility)[0];
 
 require_once 'db_config.php';
 
-session_start();
-if (!isset($_SESSION['users']['id'])) {
-    echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
-    exit;
-}
-$user_id = $_SESSION['users']['id'];
-$date = date('Y-m-d');
-/*すでに投票済みかチェック*/
-//$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
-$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
-$stmt->execute([$user_id, $facility_name, $date]);
-$alreadyVoted = $stmt->fetchColumn();
+// session_start();
+// if (!isset($_SESSION['users']['id'])) {
+//     echo "<p>Please <a href='login.php'>log in</a> to access your profile.</p>";
+//     exit;
+// }
+// $user_id = $_SESSION['users']['id'];
+// $date = date('Y-m-d');
+// /*すでに投票済みかチェック*/
+// //$stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+// $stmt = $pdo->prepare("SELECT COUNT(*) FROM votes WHERE user_id = ? AND facility = ? AND vote_date = ?");
+// $stmt->execute([$user_id, $facility_name, $date]);
+// $alreadyVoted = $stmt->fetchColumn();
 
-if ($alreadyVoted > 0) {
-    echo "<p>投票ありがとうございました！ <a href='siyouritu.php'>戻る</a></p>";
-    exit;
-}
+// if ($alreadyVoted > 0) {
+//     echo "<p>投票ありがとうございました！ <a href='siyouritu.php'>戻る</a></p>";
+//     exit;
+// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating = intval($_POST['rating']);
@@ -32,8 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date = date('Y-m-d');
 
      /*投票を記録*/
-    $stmt = $pdo->prepare("INSERT INTO votes (user_id, facility, rating, vote_date) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$user_id, $facility_name, $rating, $date]);
+    $time = date('H:i:s');
+    $sql = $pdo->prepare("INSERT INTO votes (/*user_id,*/ facility, rating, vote_date, vote_time) VALUES (/*?,*/ ?, ?, ?, ?)");
+    $sql->execute([/*$user_id,*/ $facility_name, $rating, $date, $time]);
 
     header("Location: siyouritu.php");
     exit();
@@ -65,11 +66,11 @@ $totalVotes = array_sum($data);
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
         <p>現在の状況を選んでください：</p>
         <select name="rating" required>
-            <option value="1">たくさん空いてる</option>
-            <option value="2">少し埋まってる</option>
-            <option value="3">4割ほど埋まってる</option>
-            <option value="4">8割ほど埋まってる</option>
-            <option value="5">満席！誰も座れない！</option>
+            <option value="1">1. たくさん空いてる</option>
+            <option value="2">2. 少し埋まってる</option>
+            <option value="3">3. 4割ほど埋まってる</option>
+            <option value="4">4. 8割ほど埋まってる</option>
+            <option value="5">5. 満席！誰も座れない！</option>
         </select>
         <button type="submit">送信</button>
     </form>
@@ -85,7 +86,7 @@ $totalVotes = array_sum($data);
         const chart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['たくさん空いてる', '少し埋まってる', '4割ほど埋まってる' ,'8割埋まってる', '満席！誰も座れない！'],
+                labels: ['1. たくさん空いてる', '2. 少し埋まってる', '3. 4割ほど埋まってる' ,'4. 8割埋まってる', '5. 満席！誰も座れない！'],
                 datasets: [{
                     label: '投票数',
                     data: <?= json_encode(array_values($data)) ?>,

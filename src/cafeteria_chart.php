@@ -1,7 +1,30 @@
 <?php
 require_once 'db_config.php';
-$facility = basename(__FILE__, '_chart.php');
+$filename = basename(__FILE__, '.php');
+$facility = explode('_', $filename)[0];
 $date = date('Y-m-d');
+$weekday = date('w');
+
+$timeSlotAverages = [];
+$startHour = 12;
+$endHour = 19;
+
+for($hour = $startHour; $hour < $endHour; $hour++) {
+    $start = sprintf('%02d:00:00', $hour);
+    $end = sprintf('%02d:59:59', $hour);
+    $label = sprintf('%02d:00', $hour);
+
+    $stmt = $pdo->prepare("
+        SELECT AVG(rating) as avg_rating 
+        FROM votes
+        WHERE facility = ? AND vote_date = ? AND vote_time BETWEEN ? AND ?
+    ");
+    $stmt->execute([$facility, $date, $start, $end]);
+    $avg = $stmt->fetchColumn();    
+    $avg = $avg !== null ? round($avg, 2) : 0;
+
+    $timeSlotAverages[$label] = $avg;
+    }
 
 $stmt = $pdo->prepare("SELECT rating, COUNT(*) as count FROM votes WHERE facility = ? AND vote_date = ? GROUP BY rating");
 $stmt->execute([$facility, $date]);
@@ -22,8 +45,10 @@ $totalVotes = array_sum($data);
         <title><?= $facility ?>Chart</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
 </head>
 <body>
+    <p class="lead">今日の混雑度</p>
     <canvas id="chart" class="canvas"></canvas>
     <script>
         const ctx = document.getElementById('chart').getContext('2d');
@@ -57,7 +82,41 @@ $totalVotes = array_sum($data);
             }
         });
         </script>
-        <p><strong>投票日：<?= $date ?></strong></p>
+        <p class="lead_bar">過去の平均混雑度:<?= ['日','月','火','水','木','金','土'][$weekday] ?>曜日</p>
+        <canvas id="barChart" class="canvas" style="margin-top: 40px;"></canvas>
+        <script>
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: <?= json_encode(array_keys($timeSlotAverages)) ?>,
+                    datasets: [{
+                        label: '平均混雑度（<?= ['日','月','火','水','木','金','土'][$weekday] ?>曜日）',
+                        data: <?= json_encode(array_values($timeSlotAverages)) ?>,
+                        backgroundColor: '#87cefa'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            title: {
+                                display: true,
+                                text: '評価（1〜5）'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        </script>
+        <p><strong>投票日：<?= $date . '（' . ['日','月','火','水','木','金','土'][$weekday] . '）' ?></strong></p>
         <p><strong>総投票数：<?= $totalVotes ?> 件</strong></p>
     </body>
 </html>

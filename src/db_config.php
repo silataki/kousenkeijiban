@@ -1,6 +1,6 @@
 <?php
 $host = '127.0.0.1';
-$db   = 'facility_usage';
+$db   = 'usage_db';
 $user = 'root';
 $pass = 'password';
 $charset = 'utf8mb4';
